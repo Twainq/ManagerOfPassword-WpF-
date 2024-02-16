@@ -64,7 +64,7 @@ namespace WpfApp2
             //    }
             //}
         }
-
+        
         private void SaveToFile_Click(object sender, RoutedEventArgs e)
         {
 
@@ -87,10 +87,10 @@ namespace WpfApp2
                 while (ServicesGrid.SelectedItems.Count != 0) {
                     ServicesGrid.Items.Remove(ServicesGrid.SelectedItem);
                 }
-                
+
             }else
             {
-                MessageBox.Show("Нет выбранных паролей для удаления!");
+                MessageBox.Show("Нет выбранных паролей для удаления!"); 
             }
 
         }
