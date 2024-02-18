@@ -16,14 +16,14 @@
 
 
         </Grid.RowDefinitions>
-        <TextBox Height="30"  Name="service" VerticalAlignment="Top"/>
-        <TextBox Height="30" Name="login" VerticalAlignment="Top" Margin="0,70,0,0"/>
-        <TextBox Height="30" Name="password" VerticalAlignment="Top" Margin="0,35,0,0"/>
+        <TextBox Height="30"  Name="service" VerticalAlignment="Top" Margin="10,27,10,0"/>
+        <TextBox Height="30" Name="login" VerticalAlignment="Top" Margin="10,80,10,0"/>
+        <TextBox Height="30" Name="password" VerticalAlignment="Top" Margin="10,137,10,0"/>
 
-        <Button Content="Добавить" Click="Button_Click" Margin="10,114,10,280"/>
-        <Button Width="220" Name="SaveToFile" HorizontalAlignment="Center" Content="Сохранить" Click="SaveToFile_Click" Margin="0,167,0,228"/>
-        <Button Content="Удалить" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" Width="220" Height="39" Click="Button_Click_1"/>
-        
+        <Button Content="Добавить" HorizontalAlignment="Center" VerticalAlignment="Top" Width="220" Height="40" Click="AddButton_Click" Margin="0,177,0,0"/>
+        <Button Name="SaveToFile"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="220" Height="39" Content="Сохранить" Click="SaveToFile_Click" Margin="0,231,0,0"/>
+        <Button Content="Удалить" HorizontalAlignment="Center" Margin="0,285,0,0" VerticalAlignment="Top" Width="220" Height="39" Click="DeleteButton_Click"/>
+
         <DataGrid Name="ServicesGrid" AutoGenerateColumns="True" Grid.Column="1" Grid.ColumnSpan="2" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Service"  Binding="{Binding Service}"    Width="30*"/>
@@ -32,7 +32,10 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        
+        <Label Content="Service:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="10,1,0,0"/>
+        <Label Content="Login:" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top"/>
+        <Label Content="Password:" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top"/>
+
 
 
 

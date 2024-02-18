@@ -25,6 +25,7 @@ namespace WpfApp2
     {
         string fileName = "data.db";
         string data;
+        List<Product> list = new List<Product>();
         public MainWindow()
         {
             InitializeComponent();
@@ -35,36 +36,29 @@ namespace WpfApp2
                 {
                    data = sr.ReadToEnd();   
                 }
-                string[] lines = data.Split('\n');
-                foreach(string line in lines)
-                {
-                    if (line != "")
-                    {
-                        Product p = JsonConvert.DeserializeObject<Product>(line);
-                        ServicesGrid.Items.Add(p);
-                    }
-                    
-                }
+                SplitPassword();
 
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            ServicesGrid.Items.Add(new Product(service.Text, login.Text, password.Text));
-            //foreach (Product p in ServicesGrid.Items)
-            //{
-            //    if (service.Text!= p.Service && login.Text != p.Service)
-            //    {
-            //        ServicesGrid.Items.Add(new Product(service.Text, login.Text, password.Text));
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Такой пароль уже существует!");
-            //    }
-            //}
+            if (list.Count == 0)
+                AddPassword();
+            else
+            {
+                if (Uniq())
+                    AddPassword();
+                else
+                    MessageBox.Show("Пароль с таким сервисом и логином уже существует!");
+            }
+            
         }
-        
+        private void AddPassword()
+        {
+            list.Add(new Product(service.Text, login.Text, password.Text));
+            ServicesGrid.Items.Add(new Product(service.Text, login.Text, password.Text));
+        }
         private void SaveToFile_Click(object sender, RoutedEventArgs e)
         {
 
@@ -80,19 +74,44 @@ namespace WpfApp2
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ServicesGrid.SelectedItems.Count != 0) {
+            if (ServicesGrid.SelectedItems.Count != 0) 
+            {
+                while (ServicesGrid.SelectedItems.Count != 0)
+                {
+                    Product selectedProduct = (Product)ServicesGrid.SelectedItem;
+                    ServicesGrid.Items.Remove(selectedProduct);
+                    list.Remove(selectedProduct);
+                }
+                
+            }else
+                MessageBox.Show("Нет выбранных паролей для удаления!"); 
+        }
 
-                while (ServicesGrid.SelectedItems.Count != 0) {
-                    ServicesGrid.Items.Remove(ServicesGrid.SelectedItem);
+        private bool Uniq()
+        {
+            foreach (Product product in list)
+            {
+                if (product.Service == service.Text && product.Login == login.Text)
+                    return false;
+            }
+            return true;
+        }
+
+        private void SplitPassword()
+        {
+            string[] lines = data.Split('\n');
+            foreach (string line in lines)
+            {
+                if (line != "")
+                {
+                    Product p = JsonConvert.DeserializeObject<Product>(line);
+                    ServicesGrid.Items.Add(p);
+                    list.Add(p);
                 }
 
-            }else
-            {
-                MessageBox.Show("Нет выбранных паролей для удаления!"); 
             }
-
         }
     }
 }
